@@ -1,38 +1,85 @@
 .App {
   text-align: center;
+  margin: 0px;
+  padding: 0px;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Body-area{
+  margin: 20%;
+  background-color: aquamarine;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 10px;
+}
+.bubble{
+  text-align: left;
+  background-color: white;
+  border-radius: 10px;
+  width: fit-content;
+  height: fit-content;
+  min-width: 80px;
+  margin: 5px;
+  padding: 5px 10px 5px 10px;
+  border-right-style: solid ;
+  border-right-color: white;
+}
+.answer-action{
+  border-right-style: solid ;
+  border-right-color: rgb(55, 241, 55);
+}
+.reject-action{
+  border-right-style: solid ;
+  border-right-color: rgb(221, 22, 22);
+}
+.bubble-button button{
+  background-color: white;
+  border: none;
+  padding: 5px;
+  font-weight: bold;
+}
+.reply-bubble{
+  text-align: left;
+  background-color: white;
+  border-radius: 10px;
+  width: fit-content;
+  height: fit-content;
+  min-width: 80px;
+  margin: 5px;
+  padding: 5px 10px 5px 10px; 
+}
+.reply-bubble input{
+  margin: 10px;
+  padding: 20px;
+  min-width: 80px;
+}
+.reply-bubble button{
+  padding: 10px;
+  background-color: blueviolet;
+  border: none;
   color: white;
+  border-radius: 5px;
+  margin-top: 20px;
 }
-
-.App-link {
-  color: #61dafb;
+.answer-bubble{
+  text-align: left;
+  background-color: rgb(155, 245, 177);
+  border-radius: 10px;
+  width: fit-content;
+  height: fit-content;
+  min-width: 50px;
+  margin: 5px;
+  padding: 5px 10px 5px 10px; 
+  block-size: fit-content;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.answer-head{
+  display: flex;
+  justify-content: space-between;
+}
+.answer-head a{
+  margin: 16px;
+  text-decoration: none;
+  font-size: small;
+}
+.answer-head p{
+  font-size: medium;
+  font-weight: bold;
 }
