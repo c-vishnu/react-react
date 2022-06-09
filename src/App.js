@@ -4,9 +4,10 @@ import axios from "./axios";
 
 function App() {
 
-  const [bubbleId, setBubbleId] = useState();
-  const [inputId, setInputId] = useState();
-  const [buttonId, setButtonId] = useState();
+  const [Id, setId] = useState();
+  // const [bubbleId, setBubbleId] = useState();
+  // const [inputId, setInputId] = useState();
+  // const [buttonId, setButtonId] = useState();
   const [reply, setReplay] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [colour, setColour] = useState("");
@@ -26,15 +27,16 @@ function App() {
 
   const onSendAnswer = async (e) => {
     console.log("qandaId", qandaId);
-    await axios.patch(`/qanda/${qandaId}`, {
+    await axios.patch(`/qanda/${qandaId}`,{
       answer: answerData,
-
     })
-      .then((res) => {
-        setAnswerData("");
-        // setColour("green");
-      });
-  }
+    .then((res) => {
+    setAnswerData("");
+    })
+    .then((res)=>{
+    setColour("green"); 
+    });
+  };
 
   return (
     <div className="App">
@@ -42,69 +44,66 @@ function App() {
         {questions.map((data) => (
           <>
             <div 
-            key={data._id}
-            className={`bubble ${bubbleId === data._id && colour === "green"
-              ? "answer-action"
-              : bubbleId === data._id && colour === "red"
-                ? "reject-action"
-                : "default"
-              }`}>
-              <h6>
-                {data.senderId}
-              </h6>
-              <p>
-                {data.text}
-              </p>
-              {buttonHide && buttonId === data._id ? <div className="bubble-button">
-                <button
-                  key={data._id}
-                  onClick={() => {
-                    setReplay(!reply)
-                    setBubbleId(data._id);
-                    setQandaId(data._id);
-                    setInputId(data._id);
-                    setColour("green");
-                    setHideButton(!buttonHide);
-                    setButtonId(data._id)
-                  }}
-                  style={{ color: "limegreen" }}
-                >Answer</button>
-                <button
-                  key={data._id}
-                  onClick={() => {
-                    setBubbleId(data._id);
-                    setColour("red");
-                    setHideButton(!buttonHide);
-                    setButtonId(data._id)
-                  }}
-                  style={{ color: "red" }}
-                >Reject</button>
+              key={data._id}
+              className={`bubble ${Id === data._id && colour === "green"
+                ? "answer-action"
+                : Id === data._id && colour === "red"
+                  ? "reject-action"
+                  : "default"
+                }`}
+              >
+              <h6>{data.senderId}</h6>
+              <p>{data.text}</p>
+               {  buttonHide ? 
+                  <div className="bubble-button">
+                  <button
+                    key={data._id}
+                    onClick={() => {
+                      setReplay(!reply)
+                      setId(data._id);
+                      setQandaId(data._id);
+                      setColour("green");
+                      setHideButton(!buttonHide);
+                    }}
+                    style={{ color: "limegreen" }}
+                  >Answer</button>
+                  <button
+                    key={data._id}
+                    onClick={() => {
+                      setId(data._id);
+                      setColour("red");
+                      setHideButton(!buttonHide);
+                    }}
+                    style={{ color: "red" }}
+                  >Reject</button>
               </div> : null}
             </div>
-            {reply && inputId === data._id ? <div className="reply-bubble">
-              <input
-                type="text"
-                placeholder="Type Here"
-                value={answerData}
-                onChange={(event) => {
-                  setAnswerData(event.target.value);
-                }}
-              />
-              <button
-                onClick={() => {
-                  setAnswer(!answer);
-                  setReplay(!reply);
-                  onSendAnswer();
-                }}>Send</button>
-            </div> : null}
-            {data.answer ? <div className="answer-bubble">
+            {Id === data._id && reply? 
+              <div className="reply-bubble">
+                <input
+                  type="text"
+                  placeholder="Type Here"
+                  value={answerData}
+                  onChange={(event) => {
+                    setAnswerData(event.target.value);
+                  }}
+                />
+                <button
+                  onClick={() => {
+                    setAnswer(!answer);
+                    setReplay(!reply);
+                    onSendAnswer();
+                  }}>Send</button>
+              </div> : null}
+            {data.answer ? 
+            <div className="answer-bubble">
               <div className="answer-head">
                 <p>Admin</p>
-                <a href="#">Copy Answer</a>
+                <a href="/#">Copy Answer</a>
               </div>
-              <div>
+            <div>
                 <p>{data.answer}</p>
-              </div>
+            </div>
             </div> : null}
           </>
         ))}
